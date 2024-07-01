@@ -1,30 +1,343 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      padding: 20px;
+    }
+    h1, h2, h3, h4 {
+      color: #333;
+    }
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    code {
+      font-family: monospace;
+    }
+  </style>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <div class="container">
+    <h1>eCommerce API Documentation</h1>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+    <h2>Introduction</h2>
+    <p>This API provides a backend for an eCommerce application, built with NestJS, TypeORM, GraphQL, and PostgreSQL. It includes functionality for managing users, products, orders, and the relationship between orders and products.</p>
 
-## Description
+    <h2>Getting Started</h2>
+    <p>To get started with this API, you will need to:</p>
+    <ol>
+      <li>Clone the repository.</li>
+      <li>Install dependencies using <code>npm install</code>.</li>
+      <li>Set up the PostgreSQL database and update the <code>.env</code> file with your database credentials.</li>
+      <li>Run the application using <code>npm run start</code>.</li>
+    </ol>
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+    <h2>GraphQL Schema</h2>
+    <p>The GraphQL schema defines the structure of the API, including types, queries, and mutations.</p>
+
+    <h2>Queries</h2>
+
+    <h3>Get All Users</h3>
+    <pre><code class="language-graphql">query {
+
+users {
+id
+email
+password
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"users": [
+{
+"id": 1,
+"email": "test@example.com",
+"password": "hashedpassword"
+}
+// More users...
+]
+}
+}</code></pre>
+
+    <h3>Get User By ID</h3>
+    <pre><code class="language-graphql">query {
+
+user(id: 1) {
+id
+email
+password
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"user": {
+"id": 1,
+"email": "test@example.com",
+"password": "hashedpassword"
+}
+}
+}</code></pre>
+
+    <h3>Get All Orders</h3>
+    <pre><code class="language-graphql">query {
+
+orders {
+id
+total
+product {
+id
+name
+}
+user {
+id
+email
+}
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"orders": [
+{
+"id": 1,
+"total": 100,
+"product": {
+"id": 1,
+"name": "Product1"
+},
+"user": {
+"id": 1,
+"email": "test@example.com"
+}
+}
+// More orders...
+]
+}
+}</code></pre>
+
+    <h3>Get Order By ID</h3>
+    <pre><code class="language-graphql">query {
+
+order(id: 1) {
+id
+total
+product {
+id
+name
+}
+user {
+id
+email
+}
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"order": {
+"id": 1,
+"total": 100,
+"product": {
+"id": 1,
+"name": "Product1"
+},
+"user": {
+"id": 1,
+"email": "test@example.com"
+}
+}
+}
+}</code></pre>
+
+    <h3>Get All Products</h3>
+    <pre><code class="language-graphql">query {
+
+products {
+id
+name
+price
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"products": [
+{
+"id": 1,
+"name": "Product1",
+"price": 50
+}
+// More products...
+]
+}
+}</code></pre>
+
+    <h3>Get Product By ID</h3>
+    <pre><code class="language-graphql">query {
+
+product(id: 1) {
+id
+name
+price
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"product": {
+"id": 1,
+"name": "Product1",
+"price": 50
+}
+}
+}</code></pre>
+
+    <h2>Mutations</h2>
+
+    <h3>Create User</h3>
+    <pre><code class="language-graphql">mutation {
+
+createUser(createUserInput: {
+email: "newuser@example.com",
+password: "newpassword"
+}) {
+id
+email
+password
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"createUser": {
+"id": 2,
+"email": "newuser@example.com",
+"password": "hashedpassword"
+}
+}
+}</code></pre>
+
+    <h3>Create Order</h3>
+    <pre><code class="language-graphql">mutation {
+
+createOrder(createOrderInput: {
+userId: 1,
+total: 200,
+productId: 1
+}) {
+id
+total
+product {
+id
+name
+}
+user {
+id
+email
+}
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"createOrder": {
+"id": 2,
+"total": 200,
+"product": {
+"id": 1,
+"name": "Product1"
+},
+"user": {
+"id": 1,
+"email": "test@example.com"
+}
+}
+}
+}</code></pre>
+
+    <h3>Create Product</h3>
+    <pre><code class="language-graphql">mutation {
+
+createProduct(createProductInput: {
+name: "NewProduct",
+price: 75
+}) {
+id
+name
+price
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"createProduct": {
+"id": 2,
+"name": "NewProduct",
+"price": 75
+}
+}
+}</code></pre>
+
+    <h3>Create OrderProduct</h3>
+    <pre><code class="language-graphql">mutation {
+
+createOrderProduct(createOrderProductInput: {
+orderId: 1,
+productId: 2
+}) {
+id
+order {
+id
+total
+}
+product {
+id
+name
+}
+}
+}</code></pre>
+
+    <h4>Response:</h4>
+    <pre><code class="language-json">{
+
+"data": {
+"createOrderProduct": {
+"id": 1,
+"order": {
+"id": 1,
+"total": 100
+},
+"product": {
+"id": 2,
+"name": "NewProduct"
+}
+}
+}
+}</code></pre>
 
 ## Installation
 
@@ -58,16 +371,6 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+  </div>
+</body>
+</html>
