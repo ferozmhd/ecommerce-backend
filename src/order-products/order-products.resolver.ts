@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { OrderProductsService } from './order-products.service';
-import { OrderProductModel } from 'src/models/order-product.model';
+import { OrderProductModel } from '../models/order-product.model';
 import { CreateOrderProductInput } from './dto/create-order-product.input';
 
 @Resolver(() => OrderProductModel)

@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { OrderProduct } from './entities/order-product.entity';
 import { CreateOrderProductInput } from './dto/create-order-product.input';
-import { Order } from 'src/orders/entities/order.entity';
-import { Product } from 'src/products/entities/product.entity';
+import { Order } from '../orders/entities/order.entity';
+import { Product } from '../products/entities/product.entity';
 
 @Injectable()
 export class OrderProductsService {
@@ -17,8 +17,22 @@ export class OrderProductsService {
     private productRepository: Repository<Product>,
   ) {}
 
+  findAll(): Promise<OrderProduct[]> {
+    return this.orderProductRepository.find({
+      relations: ['order', 'product'],
+    });
+  }
+
+  findOne(id: number): Promise<OrderProduct> {
+    return this.orderProductRepository.findOne({
+      where: { id },
+      relations: ['order', 'product'],
+    });
+  }
+
   async findOneById(id: number): Promise<OrderProduct> {
-    return this.orderProductRepository.findOne(id, {
+    return this.orderProductRepository.findOne({
+      where: { id },
       relations: ['order', 'product'],
     });
   }
@@ -26,12 +40,12 @@ export class OrderProductsService {
   async create(
     createOrderProductInput: CreateOrderProductInput,
   ): Promise<OrderProduct> {
-    const order = await this.orderRepository.findOne(
-      createOrderProductInput.orderId,
-    );
-    const product = await this.productRepository.findOne(
-      createOrderProductInput.productId,
-    );
+    const order = await this.orderRepository.findOne({
+      where: { id: createOrderProductInput.orderId },
+    });
+    const product = await this.productRepository.findOne({
+      where: { id: createOrderProductInput.productId },
+    });
 
     if (!order || !product) {
       throw new Error('Order or Product not found');
