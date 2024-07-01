@@ -10,6 +10,9 @@ export class OrderProduct {
   @ManyToOne(() => Order, (order) => order.orderProducts, { eager: true })
   order: Order;
 
-  @ManyToOne(() => Product, (product) => product.orderProducts, { eager: true })
+  @ManyToOne(() => Product, (product) => product.orderProducts, {
+    eager: true,
+    nullable: false,
+  })
   product: Product;
 }

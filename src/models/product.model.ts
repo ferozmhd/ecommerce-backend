@@ -17,7 +17,4 @@ export class ProductModel {
 
   @Field()
   createdAt: Date;
-
-  @Field(() => [OrderModel])
-  orders: OrderModel[];
 }

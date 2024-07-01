@@ -9,8 +9,5 @@ export class CreateOrderInput {
   quantity: number;
 
   @Field(() => Int)
-  price: number;
-
-  @Field(() => Int)
   userId: number;
 }
