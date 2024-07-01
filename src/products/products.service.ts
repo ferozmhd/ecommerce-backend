@@ -13,13 +13,12 @@ export class ProductsService {
   ) {}
 
   findAll(): Promise<Product[]> {
-    return this.productRepository.find({ relations: ['orders'] });
+    return this.productRepository.find();
   }
 
   findOne(id: number): Promise<Product> {
     return this.productRepository.findOne({
       where: { id },
-      relations: ['orders'],
     });
   }
 

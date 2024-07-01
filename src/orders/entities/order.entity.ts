@@ -20,11 +20,13 @@ export class Order {
   @CreateDateColumn()
   createdAt: Date;
 
-  @ManyToOne(() => User, (user) => user.orders)
+  @ManyToOne(() => User, (user) => user.orders, {
+    nullable: true,
+  })
   user: User;
 
   @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order, {
-    nullable: false,
+    nullable: true,
   })
   orderProducts: OrderProduct[];
 }
