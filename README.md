@@ -1,30 +1,6 @@
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      padding: 20px;
-    }
-    h1, h2, h3, h4 {
-      color: #333;
-    }
-    pre {
-      background: #f4f4f4;
-      padding: 10px;
-      border-radius: 5px;
-      overflow-x: auto;
-    }
-    code {
-      font-family: monospace;
-    }
-  </style>
-
   <div class="container">
     <h1>eCommerce API Documentation</h1>
-
-    <h2>Introduction</h2>
+    <h1>Introduction</h1>
     <p>This API provides a backend for an eCommerce application, built with NestJS, TypeORM, GraphQL, and PostgreSQL. It includes functionality for managing users, products, orders, and the relationship between orders and products.</p>
 
     <h2>Getting Started</h2>
